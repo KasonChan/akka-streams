@@ -21,15 +21,17 @@ object Sum {
     val source = Source(1 to 10)
     val sink = Sink.fold[Int, Int](0)(_ + _)
 
-    //    val sum = source.runWith(sink)
+    val sum1 = source.runWith(sink)
+    sum1.foreach(println)
+    sum1.map(s => println(s))
 
     // Connect the Source to the Sink, obtaining a RunnableGraph
     val runnable: RunnableGraph[Future[Int]] = source.toMat(sink)(Keep.right)
 
     // Materialize the flow and get the value of the FoldSink
-    val sum: Future[Int] = runnable.run()
+    val sum2: Future[Int] = runnable.run()
 
-    sum.onComplete {
+    sum2.onComplete {
       case Success(s) =>
         println(s)
         system.shutdown()
