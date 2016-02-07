@@ -9,8 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
 
 /**
- * Created by ka-son on 8/2/15.
- */
+  * Created by ka-son on 8/2/15.
+  */
 object Supervise extends App {
 
   implicit val system = ActorSystem("system")
@@ -30,5 +30,6 @@ object Supervise extends App {
   val res = Await.result(result, Duration.Inf)
   println(res)
   result.map(r => println(r))
+  system.shutdown()
 
 }
