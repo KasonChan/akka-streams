@@ -23,7 +23,7 @@ object BackPressure extends App {
 
   val sink = Sink.foreach(println)
 
-  // connect source to sink with additional step
+   // connect source to sink with additional step
   source.via(fastPublisher)
     .via(slowSubscriber)
     .runForeach(println)
@@ -39,5 +39,16 @@ object BackPressure extends App {
     .buffer(100, OverflowStrategy.backpressure)
     .via(slowSubscriber2)
     .runWith(Sink.foreach(println))
+
+  val source3 = Source(1 to 1000)
+  val sink3 = Sink.foreach { i: Int =>
+    Thread.sleep(10000)
+    println(i)
+  }
+
+  source3.via(slowSubscriber2)
+    .runWith(sink3).onComplete {
+    case _ => system.shutdown()
+  }
 
 }
