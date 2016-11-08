@@ -2,13 +2,13 @@ name := "akka-streams"
 
 version := "1.0"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 
-val akkaV = "2.3.11"
-val akkaStreamV = "1.0"
+val akkaV = "2.4.11"
+val akkaStreamV = "2.4.11"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor" % akkaV,
   "com.typesafe.akka" %% "akka-slf4j" % akkaV,
-  "com.typesafe.akka" %% "akka-stream-experimental" % akkaStreamV
+  "com.typesafe.akka" %% "akka-stream" % akkaStreamV
 )
